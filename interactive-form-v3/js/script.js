@@ -24,8 +24,11 @@ colorItems.disabled = true;
 const designSelector = document.querySelector("#design");
 designSelector.addEventListener("change", (e) => {
 	colorItems.disabled = false;
-	colorItems.children[0].selected = true;
-	colorItems.children[0].textContent = "";
+  if (e.target.value === "js puns") {
+    colorItems.children[1].selected = true;
+  } else {
+    colorItems.children[4].selected = true;
+  }
 	for (let i = 1; i < colorItems.children.length; i++) {
 		colorItems.children[i].textContent = `${colorItems.children[i].textContent.replace(/\(.*\)/, "")}`;
 		if (colorItems.children[i].dataset.theme === e.target.value) {
@@ -156,3 +159,15 @@ formElement.addEventListener("submit", (e) => {
 
   }
 });
+
+
+// create focus and blur events for each checkbox input.
+const activitiesBox = document.querySelector("#activities-box");
+for ( let i = 0; i < activitiesBox.childElementCount; i++) {
+  activitiesBox.children[i].firstElementChild.addEventListener("focus", e => {
+        activitiesBox.children[i].className = "focus";
+  });
+  activitiesBox.children[i].firstElementChild.addEventListener("blur", e => {
+        activitiesBox.children[i].removeAttribute("class");
+  });
+}
