@@ -115,46 +115,73 @@ const card = document.querySelector("#cc-num");
 const zip = document.querySelector("#zip");
 const cvv = document.querySelector("#cvv");
 const formElement = document.getElementsByTagName("form")[0];
+
 formElement.addEventListener("submit", (e) => {
 	if (!validateName(nameField.value)) {
 		e.preventDefault();
 		document.querySelector("#name-hint").style.display = "inherit";
+    nameField.parentElement.classList.add("not-valid");
+    nameField.parentElement.classList.remove("valid");
 	} else {
 		document.querySelector("#name-hint").style.display = "none";
+    nameField.parentElement.classList.add("valid");
+    nameField.parentElement.classList.remove("not-valid");
 	}
 	if (!validateEmail(email.value)) {
 		e.preventDefault();
 		document.querySelector("#email-hint").style.display = "inherit";
+    email.parentElement.classList.add("not-valid");
+    email.parentElement.classList.remove("valid");
 	} else {
 		document.querySelector("#email-hint").style.display = "none";
+    email.parentElement.classList.add("valid");
+    email.parentElement.classList.remove("not-valid");
 	}
 	if (!validateActivities()) {
 		e.preventDefault();
 		document.querySelector("#activities-hint").style.display = "inherit";
+    activitiesField.classList.add("not-valid");
+    activitiesField.classList.remove("valid");
 	} else {
 		document.querySelector("#activities-hint").style.display = "none";
-	}
+    activitiesField.classList.add("valid");
+    activitiesField.classList.remove("not-valid");
+
+  }
+
 
   if (credit.hidden === false) {
     if (!validateCardNumber(card.value)) {
       e.preventDefault();
       card.nextElementSibling.style.display = "inherit";
+      card.parentElement.classList.add("not-valid");
+      card.parentElement.classList.remove("valid");
     } else {
       card.nextElementSibling.style.display = "none";
+      card.parentElement.classList.add("valid");
+      card.parentElement.classList.remove("not-valid");
     }
 
     if (!validateZip(zip.value)) {
       e.preventDefault();
       zip.nextElementSibling.style.display = "inherit";
+      zip.parentElement.classList.add("not-valid");
+      zip.parentElement.classList.remove("valid");
     } else {
       zip.nextElementSibling.style.display = "none";
+      zip.parentElement.classList.add("valid");
+      zip.parentElement.classList.remove("not-valid");
     }
 
     if (!validateCVV(cvv.value)) {
       e.preventDefault();
       cvv.nextElementSibling.style.display = "inherit";
+      cvv.parentElement.classList.add("not-valid");
+      cvv.parentElement.classList.remove("valid");
     } else {
       cvv.nextElementSibling.style.display = "none";
+      cvv.parentElement.classList.add("valid");
+      cvv.parentElement.classList.remove("not-valid");
     }
 
   }
