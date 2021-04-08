@@ -16,6 +16,8 @@ No frameworks nor plugins
 ## Features
 * real-time error messages: <code>input</code> event listeners implemented along with validation helper functions. This was done for better user experience in error checking status. Checking errors only with the submit event is more error prone, and as the statistical studies suggest more people ends abandoning the form, instead of completing it.
 
+* conditional error messages: the email field has to possible error messages, one if no email was entered, and another if the format is not correct.
+
 ## Installation
 Just download the files and open index.html on any tested browser.
 
