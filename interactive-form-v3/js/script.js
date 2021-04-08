@@ -6,11 +6,11 @@
 ================================================*/
 //console.log("test"); - Testing html<-->js connection.
 
-// 1) setting the focus on the name field of the form when page loads.
+// Setting the focus on the name field of the form when page loads.
 const nameField = document.querySelector('#name');
 nameField.focus();
 
-// 2) "Other" job role functionality -
+// "Other-job" role feature -
 const otherJobText = document.querySelector("#other-job-role");
 otherJobText.hidden = true; // Other text input hidden by default.
 const roleSelected = document.querySelector('#title');
@@ -19,7 +19,7 @@ roleSelected.addEventListener('change', e => {
     true;
 }); //using ternary operator for simple branching.
 
-// 3) Color selector functionality.
+// Color selector functionality.
 const colorItems = document.querySelector("#color");
 const designSelector = document.querySelector("#design");
 colorItems.disabled = true;
@@ -30,9 +30,10 @@ designSelector.addEventListener('change', e => {
   } else {
     colorItems.children[4].selected = true;
   }
-  /* for looping through all colors, cleaning with REGEX the textContent,
-   *  and hidding colors that do not correspond to the selected design.
-   */
+  /**
+  *  for looping through all colors, cleaning with REGEX the textContent,
+  *  and hidding colors that do not correspond to the selected design.
+  **/
   for (let i = 1; i < colorItems.children.length; i++) {
     colorItems.children[i].textContent =
       `${colorItems.children[i].textContent.replace(/\(.*\)/, "")}`;
@@ -44,7 +45,7 @@ designSelector.addEventListener('change', e => {
   }
 });
 
-// 4) Register for Activities functionality:
+// Register for Activities functionality:
 const sumActivities = document.querySelector("#activities-cost");
 const activitiesField = document.querySelector("#activities");
 const activitiesBox = document.querySelector("#activities-box");
@@ -75,17 +76,17 @@ activitiesField.addEventListener('change', e => {
   }
 });
 
-// create focus and blur events for each checkbox input.
+// Adding focus and blur events for each checkbox input.
 for (let i = 0; i < activitiesBox.childElementCount; i++) {
   activitiesBox.children[i].firstElementChild.addEventListener("focus", e => {
-    activitiesBox.children[i].className = "focus";
+    activitiesBox.children[i].classList.add("focus");
   });
   activitiesBox.children[i].firstElementChild.addEventListener("blur", e => {
-    activitiesBox.children[i].removeAttribute("class");
+    activitiesBox.children[i].classList.remove("focus");
   });
 }
 
-// 5) Payment info functionality:
+// Payment info feature:
 const paymentMethod = document.querySelector("#payment");
 const credit = document.querySelector("#credit-card");
 const paypal = document.querySelector("#paypal");
@@ -109,26 +110,26 @@ paymentMethod.addEventListener('change', e => {
     showPayMethod(btc);
   }
 });
-
-/* 6) Form validation. using regex, custom helper functions and
- *     a principal validation fx.
- * ============================================================
- * Validation arrow functions and helper function declaration.
- * ============================================================
- */
- const email = document.querySelector("#email");
- const card = document.querySelector("#cc-num");
- const zip = document.querySelector("#zip");
- const cvv = document.querySelector("#cvv");
-
+/**
+* Form validation. using regex, custom helper functions and
+* a main validation fx.
+**/
+const email = document.querySelector("#email");
+const card = document.querySelector("#cc-num");
+const zip = document.querySelector("#zip");
+const cvv = document.querySelector("#cvv");
+/**
+* ======================================
+* Individual validation arrow functions.
+* ======================================
+**/
 const isValidName = name => !(name === "" || /^\s+$/.test(name));
-const isValidEmail = email => (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
-  email));
+const isValidEmail = email => (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email));
 const isValidCard = number => (/^\d{13,16}$/.test(number));
 const isValidZip = zip => (/^\d{5}$/.test(zip));
 const isValidCvv = cvv => (/^\d{3}$/.test(cvv));
 
-// [exceeds] Conditional error message. Creating the new span error message.
+// Conditional error message. Creating the new <span> error message.
 const new_error = document.createElement("span");
 new_error.textContent = "Email field cannot be blank, add an Email address";
 new_error.className = "email-hint hint";
@@ -201,10 +202,10 @@ formElement.addEventListener( 'submit', e => {
 });
 /**
 * Real-time error message feature:
-* declaring an arrow function to add the INPUT
-* listener to the required fields
+* declaring an arrow function to add the <INPUT>
+* event listener to the required fields
 * @param {element} field - input element to validate.
-* @param {function} valid_func - callback validation function.
+* @param {function} valid_func - callback individual validation function.
 **/
 const createDynamicValidate = (field, valid_func) => {
   field.addEventListener("input", e => {
