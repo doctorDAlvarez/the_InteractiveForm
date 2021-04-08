@@ -142,10 +142,12 @@ email.parentElement.appendChild(new_error);
 * @param {element} element - input field to change.
 **/
 function validStatus(element) {
-  email.parentElement.lastElementChild.style.display = "none";
   element.nextElementSibling.style.display = "none";
   element.parentElement.classList.add("valid");
   element.parentElement.classList.remove("not-valid");
+  if (element === email) {
+    email.parentElement.lastElementChild.style.display = "none";
+  }
 }
 function errorStatus(element) {
   email.parentElement.lastElementChild.style.display = "none";
