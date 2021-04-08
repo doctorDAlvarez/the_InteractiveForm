@@ -116,47 +116,74 @@ paymentMethod.addEventListener('change', e => {
  * Validation arrow functions and helper function declaration.
  * ============================================================
  */
-const validateName = name => (name === "" || /^\s+$/.test(name));
-const validateEmail = email => !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
+ const email = document.querySelector("#email");
+ const card = document.querySelector("#cc-num");
+ const zip = document.querySelector("#zip");
+ const cvv = document.querySelector("#cvv");
+
+const isValidName = name => !(name === "" || /^\s+$/.test(name));
+const isValidEmail = email => (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
   email));
-const validateCardNumber = number => !(/^\d{13,16}$/.test(number));
-const validateZip = zip => !(/^\d{5}$/.test(zip));
-const validateCVV = cvv => !(/^\d{3}$/.test(cvv));
+const isValidCard = number => (/^\d{13,16}$/.test(number));
+const isValidZip = zip => (/^\d{5}$/.test(zip));
+const isValidCvv = cvv => (/^\d{3}$/.test(cvv));
 
-function errorStatus(element) {
-  element.nextElementSibling.style.display = "inherit";
-  element.parentElement.classList.add("not-valid");
-  element.parentElement.classList.remove("valid");
-}
+// [exceeds] Conditional error message. Creating the new span error message.
+const new_error = document.createElement("span");
+new_error.textContent = "Email field cannot be blank, add an Email address";
+new_error.className = "email-hint hint";
+new_error.style.display = "none";
+email.parentElement.appendChild(new_error);
 
+/**
+* Declaring Status helper functions.
+* this functions change the status of the validated field.
+* @param {element} element - input field to change.
+**/
 function validStatus(element) {
+  email.parentElement.lastElementChild.style.display = "none";
   element.nextElementSibling.style.display = "none";
   element.parentElement.classList.add("valid");
   element.parentElement.classList.remove("not-valid");
 }
-
-/* principal function declaration:
- *
- **/
-function validation(func, element, e) {
-  if (func(element.value)) {
-    e.preventDefault();
-    errorStatus(element);
-  } else {
-    validStatus(element);
+function errorStatus(element) {
+  email.parentElement.lastElementChild.style.display = "none";
+  element.nextElementSibling.style.display = "inherit";
+  element.parentElement.classList.add("not-valid");
+  element.parentElement.classList.remove("valid");
+  if (email.value === "") {
+    email.nextElementSibling.style.display = "none";
+    email.parentElement.lastElementChild.style.display = "inherit";
   }
 }
+/**
+* Main helper validation function:
+* validates the field and branch to a valid / error status respective.
+* @param {function} func - individual field helper function.
+* @param {element} element - input element to validate.
+* @param {event object} e - passing from the listener to call preventDefault().
+**/
+function validation(func, element, e) {
+  if ( func(element.value) ) {
+    validStatus( element );
+  } else {
+      e.preventDefault();
+      errorStatus( element );
+    }
+}
 
-//form validation when submitted.
-const email = document.querySelector("#email");
-const card = document.querySelector("#cc-num");
-const zip = document.querySelector("#zip");
-const cvv = document.querySelector("#cvv");
+/**
+* Adding listener to form element:
+* the callback use a helper <validation()> fx for the required fields.
+* the "activity registry" is validated directly with the value of the SUM.
+* @param {event} submit - listen when the form is submitted.
+* @param {arrow_function}  - callback event handler.
+**/
 const formElement = document.getElementsByTagName("form")[0];
-formElement.addEventListener("submit", e => {
-  validation(validateName, nameField, e);
-  validation(validateEmail, email, e);
-  if (!sumTotal) {
+formElement.addEventListener( 'submit', e => {
+  validation( isValidName, nameField, e );
+  validation( isValidEmail, email, e );
+  if ( !sumTotal ) {
     e.preventDefault();
     activitiesField.lastElementChild.style.display = "inherit";
     activitiesField.classList.add("not-valid");
@@ -167,8 +194,26 @@ formElement.addEventListener("submit", e => {
     activitiesField.classList.remove("not-valid");
   }
   if (credit.hidden === false) {
-    validation(validateCardNumber, card, e);
-    validation(validateZip, zip, e);
-    validation(validateCVV, cvv, e);
+    validation(isValidCard, card, e);
+    validation(isValidZip, zip, e);
+    validation(isValidCvv, cvv, e);
   }
 });
+/**
+* Real-time error message feature:
+* declaring an arrow function to add the INPUT
+* listener to the required fields
+* @param {element} field - input element to validate.
+* @param {function} valid_func - callback validation function.
+**/
+const createDynamicValidate = (field, valid_func) => {
+  field.addEventListener("input", e => {
+    validation(valid_func, field, e);
+  });
+}
+// calling the helper function on each required field.
+createDynamicValidate(nameField, isValidName);
+createDynamicValidate(email, isValidEmail);
+createDynamicValidate(card, isValidCard);
+createDynamicValidate(zip, isValidZip);
+createDynamicValidate(cvv, isValidCvv);
