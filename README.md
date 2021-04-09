@@ -22,7 +22,7 @@ No frameworks nor plugins
 Just download the files and open index.html on any tested browser.
 
 ## Tests and browser compatibility
-At the time of this README.MD April 2021. no console errors or bugs are reported. \n
+At the time of this README.MD April 2021. no console errors or bugs are reported. <br>
 Tested and working. Brave (1.22.70) Chrome (89.0.4389.114.64bit) MS Edge (89.0.774.63.64bits)
 
 ## Contribute
