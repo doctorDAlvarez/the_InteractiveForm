@@ -127,7 +127,7 @@ paymentMethod.addEventListener('change', e => {
 * ======================================
 **/
 const isValidName = name => !(name === "" || /^\s+$/.test(name));
-const isValidEmail = email => (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email));
+const isValidEmail = email => /^\w+@\w+\.\w{2,4}$/i.test(email);
 const isValidCard = number => (/^\d{13,16}$/.test(number));
 const isValidZip = zip => (/^\d{5}$/.test(zip));
 const isValidCvv = cvv => (/^\d{3}$/.test(cvv));
