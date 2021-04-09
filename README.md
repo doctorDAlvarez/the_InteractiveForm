@@ -21,9 +21,9 @@ No frameworks nor plugins
 ## Installation
 Just download the files and open index.html on any tested browser.
 
-## Tests
+## Tests and browser compatibility
 At the time of this README.MD April 2021. no console errors or bugs are reported.
-
+Tested and working. Brave (1.22.70) Chrome (89.0.4389.114.64bit) MS Edge (89.0.774.63.64bits)
 
 ## Contribute
 Please feel free to clone it, test it and colaborate with anything you might think will improve the app.
