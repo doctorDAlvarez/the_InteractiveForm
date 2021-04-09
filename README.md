@@ -5,7 +5,7 @@ This is project 3 of my fullStackJavaScript techDegree, all about user experienc
 Although mandatory, this project was incredible motivational for me, because i could start to experience real world web app coding. It was a really challenging project.
 
 ## Build status
-Web app Up and Running good. ;)
+Up and Running good. ;)
 
 ## Code style
 vanilla JavaScript.
