@@ -1,27 +1,42 @@
 /*===============================================
 * fullStack techDegree Project 3.
-* theInteractiveForm.
+* theInteractiveForm, [using REGEX].
 * by Diego Alvarez @doc on slack.
 * April 2021.
 ================================================*/
 //console.log("test"); - Testing html<-->js connection.
 
-// Setting the focus on the name field of the form when page loads.
+// declaring global variables for the DOM elements:
 const nameField = document.querySelector('#name');
+const otherJobText = document.querySelector("#other-job-role");
+const roleSelected = document.querySelector('#title');
+const colorItems = document.querySelector("#color");
+const designSelector = document.querySelector("#design");
+const sumActivities = document.querySelector("#activities-cost");
+const activitiesField = document.querySelector("#activities");
+const activitiesBox = document.querySelector("#activities-box");
+const paymentMethod = document.querySelector("#payment");
+const credit = document.querySelector("#credit-card");
+const paypal = document.querySelector("#paypal");
+const btc = document.querySelector("#bitcoin");
+const email = document.querySelector("#email");
+const card = document.querySelector("#cc-num");
+const zip = document.querySelector("#zip");
+const cvv = document.querySelector("#cvv");
+const formElement = document.getElementsByTagName("form")[0];
+
+
+// Setting the focus on the name field of the form when page loads.
 nameField.focus();
 
 // "Other-job" role feature -
-const otherJobText = document.querySelector("#other-job-role");
 otherJobText.hidden = true; // Other text input hidden by default.
-const roleSelected = document.querySelector('#title');
 roleSelected.addEventListener('change', e => {
   e.target.value === 'other' ? otherJobText.hidden = false : otherJobText.hidden =
     true;
 }); //using ternary operator for simple branching.
 
-// Color selector functionality.
-const colorItems = document.querySelector("#color");
-const designSelector = document.querySelector("#design");
+// Color selector functionality -
 colorItems.disabled = true;
 designSelector.addEventListener('change', e => {
   colorItems.disabled = false;
@@ -31,7 +46,7 @@ designSelector.addEventListener('change', e => {
     colorItems.children[4].selected = true;
   }
   /**
-  *  for looping through all colors, cleaning with REGEX the textContent,
+  *  Looping through all colors, cleaning with REGEX the textContent,
   *  and hidding colors that do not correspond to the selected design.
   **/
   for (let i = 1; i < colorItems.children.length; i++) {
@@ -46,9 +61,6 @@ designSelector.addEventListener('change', e => {
 });
 
 // Register for Activities functionality:
-const sumActivities = document.querySelector("#activities-cost");
-const activitiesField = document.querySelector("#activities");
-const activitiesBox = document.querySelector("#activities-box");
 let sumTotal = 0; // counter variable.
 activitiesField.addEventListener('change', e => {
   if (e.target.checked) {
@@ -87,10 +99,6 @@ for (let i = 0; i < activitiesBox.childElementCount; i++) {
 }
 
 // Payment info feature:
-const paymentMethod = document.querySelector("#payment");
-const credit = document.querySelector("#credit-card");
-const paypal = document.querySelector("#paypal");
-const btc = document.querySelector("#bitcoin");
 paymentMethod.children[1].selected = true; // Credit Card default method.
 paypal.hidden = true;
 btc.hidden = true;
@@ -113,12 +121,7 @@ paymentMethod.addEventListener('change', e => {
 /**
 * Form validation. using regex, custom helper functions and
 * a main validation fx.
-**/
-const email = document.querySelector("#email");
-const card = document.querySelector("#cc-num");
-const zip = document.querySelector("#zip");
-const cvv = document.querySelector("#cvv");
-/**
+*
 * ======================================
 * Individual validation arrow functions.
 * ======================================
@@ -129,7 +132,7 @@ const isValidCard = number => (/^\d{13,16}$/.test(number));
 const isValidZip = zip => (/^\d{5}$/.test(zip));
 const isValidCvv = cvv => (/^\d{3}$/.test(cvv));
 
-// Conditional error message. Creating the new <span> error message.
+// Conditional error message feature. Creating the new <span> error message.
 const new_error = document.createElement("span");
 new_error.textContent = "Email field cannot be blank, add an Email address";
 new_error.className = "email-hint hint";
@@ -182,7 +185,7 @@ function validation(func, element, e) {
 * @param {event} submit - listen when the form is submitted.
 * @param {arrow_function}  - callback event handler.
 **/
-const formElement = document.getElementsByTagName("form")[0];
+
 formElement.addEventListener( 'submit', e => {
   validation( isValidName, nameField, e );
   validation( isValidEmail, email, e );
